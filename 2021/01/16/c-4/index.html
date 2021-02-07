@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"shen-wenxin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":20,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="操作符重载与临时对象">
+  <meta name="description" content="堆、栈与内存管理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c++(二) --操作符重载与临时对象">
-<meta property="og:url" content="https://shen-wenxin.github.io/2021/01/15/c-2/index.html">
+<meta property="og:title" content="c++4">
+<meta property="og:url" content="https://shen-wenxin.github.io/2021/01/16/c-4/index.html">
 <meta property="og:site_name" content="Wenxin Shen">
-<meta property="og:description" content="操作符重载与临时对象">
+<meta property="og:description" content="堆、栈与内存管理">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-15T06:25:15.000Z">
-<meta property="article:modified_time" content="2021-01-16T06:11:02.292Z">
+<meta property="article:published_time" content="2021-01-16T06:13:42.000Z">
+<meta property="article:modified_time" content="2021-01-17T02:39:39.552Z">
 <meta property="article:author" content="Wenxin Shen">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://shen-wenxin.github.io/2021/01/15/c-2/">
+<link rel="canonical" href="https://shen-wenxin.github.io/2021/01/16/c-4/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>c++(二) --操作符重载与临时对象 | Wenxin Shen</title>
+  <title>c++4 | Wenxin Shen</title>
   
 
 
@@ -164,7 +164,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://shen-wenxin.github.io/2021/01/15/c-2/">
+    <link itemprop="mainEntityOfPage" href="https://shen-wenxin.github.io/2021/01/16/c-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -177,7 +177,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          c++(二) --操作符重载与临时对象
+          c++4
         </h1>
 
         <div class="post-meta">
@@ -187,18 +187,18 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-15 14:25:15" itemprop="dateCreated datePublished" datetime="2021-01-15T14:25:15+08:00">2021-01-15</time>
+              <time title="Created: 2021-01-16 14:13:42" itemprop="dateCreated datePublished" datetime="2021-01-16T14:13:42+08:00">2021-01-16</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-16 14:11:02" itemprop="dateModified" datetime="2021-01-16T14:11:02+08:00">2021-01-16</time>
+                <time title="Modified: 2021-01-17 10:39:39" itemprop="dateModified" datetime="2021-01-17T10:39:39+08:00">2021-01-17</time>
               </span>
 
           
-            <div class="post-description">操作符重载与临时对象</div>
+            <div class="post-description">堆、栈与内存管理</div>
 
         </div>
       </header>
@@ -209,22 +209,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="操作符重载与临时对象"><a class="header-anchor" href="#操作符重载与临时对象">¶</a>操作符重载与临时对象</h2>
-<h3 id="1-operator-overloading-操作符重载-1，成员函数-this"><a class="header-anchor" href="#1-operator-overloading-操作符重载-1，成员函数-this">¶</a>1 operator overloading(操作符重载-1，成员函数) this</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span>&amp;</span><br><span class="line">__doapl(<span class="built_in">complex</span>* ths,<span class="keyword">const</span> <span class="built_in">complex</span>&amp; r)&#123;</span><br><span class="line">    ths -&gt; re += r.re;</span><br><span class="line">    ths -&gt;im += r.im;</span><br><span class="line">    <span class="keyword">return</span> *ths;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span>&amp;</span><br><span class="line"><span class="built_in">complex</span> :: <span class="keyword">operator</span> += (<span class="keyword">const</span> <span class="built_in">complex</span>&amp; r)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> __doapl(<span class="keyword">this</span>, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="function"><span class="built_in">complex</span> <span class="title">c1</span><span class="params">(<span class="number">2</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="built_in">complex</span> <span class="title">c2</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">c2 += c1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-operator-overloading-操作重载-2，非成员函数-（无this）"><a class="header-anchor" href="#2-operator-overloading-操作重载-2，非成员函数-（无this）">¶</a>2 operator overloading(操作重载-2，非成员函数)（无this）</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="function"><span class="built_in">complex</span> <span class="title">c1</span><span class="params">(<span class="number">2</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="built_in">complex</span> c2;</span><br><span class="line"></span><br><span class="line">c2 = c1 + c2;</span><br><span class="line">c2 = c1 + <span class="number">5</span>;</span><br><span class="line">c2 = <span class="number">7</span> + c1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">const</span> <span class="built_in">complex</span>&amp; x,<span class="keyword">const</span> <span class="built_in">complex</span>&amp; y)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">complex</span>(real(x) + real(y),imag(x) + imag(y)); </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">const</span> <span class="built_in">complex</span>&amp; x,<span class="keyword">double</span> y)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">complex</span>(real(x) + real(y),imag(x)); </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">double</span> x,<span class="keyword">const</span> <span class="built_in">complex</span>&amp; y)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">complex</span>(real(x) + real(y), imag(y)); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面这些函数绝对不可能是return by reference，因为，他们返回的必定是个local object.</p>
-<p><strong>temp object(临时对象) typename()</strong></p>
-<p><code>complex(real(x) + real(y),imag(x) + imag(y));</code></p>
-<p><code>&lt;&lt;</code>不要考虑写成成员函数的形式。</p>
-<h2 id="设计一个class需要注意的事情"><a class="header-anchor" href="#设计一个class需要注意的事情">¶</a>设计一个class需要注意的事情</h2>
-<p><strong>1、要会用构造函数的inilization list</strong></p>
-<p><strong>2、函数该不该加const</strong></p>
-<p><strong>3、参数的传递reference</strong></p>
-<p><strong>4、数据主要private，函数主要public</strong></p>
+        <h2 id="一-所谓stack，所谓heap"><a class="header-anchor" href="#一-所谓stack，所谓heap">¶</a>一 所谓stack，所谓heap</h2>
+<p>​		stack是存在于某作用域(scope)的一块内存空间(memory space)。例如当你调用函数，函数本身即会形成一个stack来放置它所接受的参数，以及返回地址。</p>
+<p>​		在函数本体(function body)内声明的任何变量，其所使用的内存块都取自上述的stack。</p>
+<p>​		Heap，所谓system heap，是指由操作系统提供的一块global内存空间，内存可自动分配，从中获得若干区块。</p>
+<p>​		栈区会自动回收，堆区要自己回收。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span>&#123;</span>...&#125;;</span><br><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function">Complex <span class="title">c1</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>)</span></span>;	<span class="comment">//c1所占用的空间来自于stack</span></span><br><span class="line">	Complex *p = <span class="keyword">new</span> Complex(<span class="number">3</span>);	<span class="comment">//堆里的，你要自己delete</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-stack-的生命期"><a class="header-anchor" href="#1-stack-的生命期">¶</a>1 stack 的生命期</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span>&#123;</span>...&#125;;</span><br><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function">Complex <span class="title">c1</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​		c1便是所谓的stack object，其生命在作用域(scope)结束之际结束。</p>
+<p>​		这种作用域内的object,又称为auto object,因为它会被”自动”回收。</p>
+<h3 id="3-static-local-object-的生命期"><a class="header-anchor" href="#3-static-local-object-的生命期">¶</a>3 static local object 的生命期</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span>&#123;</span>...&#125;;</span><br><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">static</span> Complex <span class="title">c1</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​		c2便是所谓的static object，其生命在作用域(scope)结束之后仍然存在，直到整个程序结束。</p>
+<h3 id="4-global-object-生命周期"><a class="header-anchor" href="#4-global-object-生命周期">¶</a>4 global object 生命周期</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span>&#123;</span>...&#125;;</span><br><span class="line">...</span><br><span class="line"><span class="function">Complex <span class="title">c3</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​		c3便是所谓的global object，其声明在整个程序结束之后才结束。</p>
+<h3 id="5-heap-object生命期"><a class="header-anchor" href="#5-heap-object生命期">¶</a>5 heap object生命期</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span>&#123;</span>...&#125;;</span><br><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">	Complex *p =<span class="keyword">new</span> Complex;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">delete</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span>&#123;</span>...&#125;;</span><br><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">	Complex *p =<span class="keyword">new</span> Complex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//会出现内存泄漏，因为当作用于结束，p所指的heap object仍然存在，但指针p的声明却结束了，作用于之外再也看不到p</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、array-new-要搭配array-delete"><a class="header-anchor" href="#二、array-new-要搭配array-delete">¶</a>二、array new 要搭配array delete</h2>
+<p>​		这部分不想总结了，直接去看视频吧。</p>
+<h2 id="三、一些细节的补充"><a class="header-anchor" href="#三、一些细节的补充">¶</a>三、一些细节的补充</h2>
+<h3 id="1-static"><a class="header-anchor" href="#1-static">¶</a>1 static</h3>
 
     </div>
 
@@ -243,12 +250,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/14/c-1/" rel="prev" title="c++(一) ---基础">
-      <i class="fa fa-chevron-left"></i> c++(一) ---基础
+    <a href="/2021/01/15/c-3/" rel="prev" title="c++(三) --三大函数">
+      <i class="fa fa-chevron-left"></i> c++(三) --三大函数
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/01/15/c-3/" rel="next" title="c++(三) --三大函数">
-      c++(三) --三大函数 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/01/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F1/" rel="next" title="HeadFirst 设计模式（一）">
+      HeadFirst 设计模式（一） <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -308,7 +315,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD%E4%B8%8E%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">操作符重载与临时对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-operator-overloading-%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD-1%EF%BC%8C%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-this"><span class="nav-number">1.1.</span> <span class="nav-text">1 operator overloading(操作符重载-1，成员函数) this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-operator-overloading-%E6%93%8D%E4%BD%9C%E9%87%8D%E8%BD%BD-2%EF%BC%8C%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-%EF%BC%88%E6%97%A0this%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2 operator overloading(操作重载-2，非成员函数)（无this）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAclass%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%BA%8B%E6%83%85"><span class="nav-number">2.</span> <span class="nav-text">设计一个class需要注意的事情</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-%E6%89%80%E8%B0%93stack%EF%BC%8C%E6%89%80%E8%B0%93heap"><span class="nav-number">1.</span> <span class="nav-text">一 所谓stack，所谓heap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-stack-%E7%9A%84%E7%94%9F%E5%91%BD%E6%9C%9F"><span class="nav-number">1.1.</span> <span class="nav-text">1 stack 的生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-static-local-object-%E7%9A%84%E7%94%9F%E5%91%BD%E6%9C%9F"><span class="nav-number">1.2.</span> <span class="nav-text">3 static local object 的生命期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-global-object-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.3.</span> <span class="nav-text">4 global object 生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-heap-object%E7%94%9F%E5%91%BD%E6%9C%9F"><span class="nav-number">1.4.</span> <span class="nav-text">5 heap object生命期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81array-new-%E8%A6%81%E6%90%AD%E9%85%8Darray-delete"><span class="nav-number">2.</span> <span class="nav-text">二、array new 要搭配array delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82%E7%9A%84%E8%A1%A5%E5%85%85"><span class="nav-number">3.</span> <span class="nav-text">三、一些细节的补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-static"><span class="nav-number">3.1.</span> <span class="nav-text">1 static</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
