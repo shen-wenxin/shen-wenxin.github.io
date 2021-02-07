@@ -33,8 +33,11 @@
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosnode.png">
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosnode_list.png">
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosnode_info.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rostopic.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rostopic_list.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rostopic_pub.png">
 <meta property="article:published_time" content="2021-02-07T04:10:27.000Z">
-<meta property="article:modified_time" content="2021-02-07T04:54:37.558Z">
+<meta property="article:modified_time" content="2021-02-07T14:20:09.915Z">
 <meta property="article:author" content="Wenxin Shen">
 <meta property="article:tag" content="“ros”">
 <meta name="twitter:card" content="summary">
@@ -193,7 +196,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-02-07 12:10:27 / Modified: 12:54:37" itemprop="dateCreated datePublished" datetime="2021-02-07T12:10:27+08:00">2021-02-07</time>
+              <time title="Created: 2021-02-07 12:10:27 / Modified: 22:20:09" itemprop="dateCreated datePublished" datetime="2021-02-07T12:10:27+08:00">2021-02-07</time>
             </span>
 
           
@@ -225,6 +228,14 @@
 <p><img src="/2021/02/07/ros1/rosnode_info.png" alt="rosnode_info"></p>
 <p>其中<code>Subscribtions:表示订阅节点名称</code></p>
 <p>​		<code>Services:表示提供的服务</code></p>
+<h3 id="3-rostopic"><a class="header-anchor" href="#3-rostopic">¶</a>3 rostopic</h3>
+<p>可以用来看topic的相关信息</p>
+<p><img src="/2021/02/07/ros1/rostopic.png" alt="rostopic"></p>
+<p><code>rostopic list</code>可以打印出现在所有的话题列表</p>
+<p><img src="/2021/02/07/ros1/rostopic_list.png" alt="rostopic_list"></p>
+<p><code>rostopic pub</code>可以用来发布数据来给某一个topic</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic pub + 消息名+ 消息结构</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/02/07/ros1/rostopic_pub.png" alt="rostopic_pub"></p>
 
     </div>
 
@@ -305,7 +316,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-rqt-graph"><span class="nav-number">1.</span> <span class="nav-text">1 rqt_graph</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-rosnode"><span class="nav-number">2.</span> <span class="nav-text">2 rosnode</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-rqt-graph"><span class="nav-number">1.</span> <span class="nav-text">1 rqt_graph</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-rosnode"><span class="nav-number">2.</span> <span class="nav-text">2 rosnode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-rostopic"><span class="nav-number">3.</span> <span class="nav-text">3 rostopic</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
