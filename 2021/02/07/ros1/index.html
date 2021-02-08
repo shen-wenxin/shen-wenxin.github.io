@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"shen-wenxin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":20,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="rqt_graph&#x2F;rosnode">
+  <meta name="description" content="rqt_graph&#x2F;rosnode&#x2F;rostopic&#x2F;rosmsg&#x2F;rosservice&#x2F;rosbag">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ros常用命令">
 <meta property="og:url" content="https://shen-wenxin.github.io/2021/02/07/ros1/index.html">
 <meta property="og:site_name" content="Wenxin Shen">
-<meta property="og:description" content="rqt_graph&#x2F;rosnode">
+<meta property="og:description" content="rqt_graph&#x2F;rosnode&#x2F;rostopic&#x2F;rosmsg&#x2F;rosservice&#x2F;rosbag">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rqt_graph.png">
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosnode.png">
@@ -36,8 +36,15 @@
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rostopic.png">
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rostopic_list.png">
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rostopic_pub.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rostopic_pub_r.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosmsg_show.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosservice.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosservice_list.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosservice_call.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosbag_record.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/07/ros1/rosbag_play.png">
 <meta property="article:published_time" content="2021-02-07T04:10:27.000Z">
-<meta property="article:modified_time" content="2021-02-07T14:20:09.915Z">
+<meta property="article:modified_time" content="2021-02-08T03:07:13.354Z">
 <meta property="article:author" content="Wenxin Shen">
 <meta property="article:tag" content="“ros”">
 <meta name="twitter:card" content="summary">
@@ -194,13 +201,19 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-02-07 12:10:27 / Modified: 22:20:09" itemprop="dateCreated datePublished" datetime="2021-02-07T12:10:27+08:00">2021-02-07</time>
+              <time title="Created: 2021-02-07 12:10:27" itemprop="dateCreated datePublished" datetime="2021-02-07T12:10:27+08:00">2021-02-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-08 11:07:13" itemprop="dateModified" datetime="2021-02-08T11:07:13+08:00">2021-02-08</time>
+              </span>
 
           
-            <div class="post-description">rqt_graph/rosnode</div>
+            <div class="post-description">rqt_graph/rosnode/rostopic/rosmsg/rosservice/rosbag</div>
 
         </div>
       </header>
@@ -236,6 +249,33 @@
 <p><code>rostopic pub</code>可以用来发布数据来给某一个topic</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic pub + 消息名+ 消息结构</span><br></pre></td></tr></table></figure>
 <p><img src="/2021/02/07/ros1/rostopic_pub.png" alt="rostopic_pub"></p>
+<p>然后点击左右键就可以对相应信息进行修改</p>
+<p><code>需要注意的是,pub指令只会发布一次。</code></p>
+<p>如果要发送很多次，要加一个循环，将指令改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rostopic pub -r 10+ 消息名+ 消息结构</span><br></pre></td></tr></table></figure>
+<p>其中，<code>-r表示频率，表示一秒钟发布几次</code></p>
+<p><img src="/2021/02/07/ros1/rostopic_pub_r.png" alt="rostopic_pub_r"></p>
+<h3 id="4-rosmsg"><a class="header-anchor" href="#4-rosmsg">¶</a>4 rosmsg</h3>
+<p>如果要看消息的数据结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosmsg show + 消息名</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/02/07/ros1/rosmsg_show.png" alt="rosmsg_show"></p>
+<h3 id="5-rosservice"><a class="header-anchor" href="#5-rosservice">¶</a>5 rosservice</h3>
+<p><img src="/2021/02/07/ros1/rosservice.png" alt="rosservice"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice list</span><br></pre></td></tr></table></figure>
+<p>可以列出提供的所有service</p>
+<p><img src="/2021/02/07/ros1/rosservice_list.png" alt="rosservice_list"></p>
+<p>用一下命令可以开启一个新的服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice call + 服务名 + 相关信息</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/02/07/ros1/rosservice_call.png" alt="rosservice_call"></p>
+<h3 id="6-rosbag"><a class="header-anchor" href="#6-rosbag">¶</a>6 rosbag</h3>
+<p>话题记录：</p>
+<p><code>rosbag record -a(全部记录下来) -o(保存成压缩包的格式) + 压缩包的名称</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosbag record -a -O cmd_record</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/02/07/ros1/rosbag_record.png" alt="rosbag_record"></p>
+<p>话题复现：</p>
+<p><code>rosbag play + 压缩包名称</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosbag play cmd_record</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/02/07/ros1/rosbag_play.png" alt="rosbag_play"></p>
 
     </div>
 
@@ -316,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-rqt-graph"><span class="nav-number">1.</span> <span class="nav-text">1 rqt_graph</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-rosnode"><span class="nav-number">2.</span> <span class="nav-text">2 rosnode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-rostopic"><span class="nav-number">3.</span> <span class="nav-text">3 rostopic</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-rqt-graph"><span class="nav-number">1.</span> <span class="nav-text">1 rqt_graph</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-rosnode"><span class="nav-number">2.</span> <span class="nav-text">2 rosnode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-rostopic"><span class="nav-number">3.</span> <span class="nav-text">3 rostopic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-rosmsg"><span class="nav-number">4.</span> <span class="nav-text">4 rosmsg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-rosservice"><span class="nav-number">5.</span> <span class="nav-text">5 rosservice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-rosbag"><span class="nav-number">6.</span> <span class="nav-text">6 rosbag</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
