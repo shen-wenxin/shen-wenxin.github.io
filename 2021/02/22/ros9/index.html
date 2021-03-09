@@ -22,20 +22,22 @@
     var CONFIG = {"hostname":"shen-wenxin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":20,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="操作符重载与临时对象">
+  <meta name="description" content="launch启动文件的使用方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c++(二) --操作符重载与临时对象">
-<meta property="og:url" content="https://shen-wenxin.github.io/2021/01/15/c-2/index.html">
+<meta property="og:title" content="ros-launch启动文件的使用方法">
+<meta property="og:url" content="https://shen-wenxin.github.io/2021/02/22/ros9/index.html">
 <meta property="og:site_name" content="Wenxin Shen">
-<meta property="og:description" content="操作符重载与临时对象">
+<meta property="og:description" content="launch启动文件的使用方法">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-15T06:25:15.000Z">
-<meta property="article:modified_time" content="2021-01-16T06:11:02.292Z">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/22/ros9/launch.png">
+<meta property="article:published_time" content="2021-02-22T03:14:37.000Z">
+<meta property="article:modified_time" content="2021-02-22T03:43:23.525Z">
 <meta property="article:author" content="Wenxin Shen">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="ros">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shen-wenxin.github.io/2021/02/22/ros9/launch.png">
 
-<link rel="canonical" href="https://shen-wenxin.github.io/2021/01/15/c-2/">
+<link rel="canonical" href="https://shen-wenxin.github.io/2021/02/22/ros9/">
 
 
 <script id="page-configurations">
@@ -48,7 +50,7 @@
   };
 </script>
 
-  <title>c++(二) --操作符重载与临时对象 | Wenxin Shen</title>
+  <title>ros-launch启动文件的使用方法 | Wenxin Shen</title>
   
 
 
@@ -164,7 +166,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://shen-wenxin.github.io/2021/01/15/c-2/">
+    <link itemprop="mainEntityOfPage" href="https://shen-wenxin.github.io/2021/02/22/ros9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -177,7 +179,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          c++(二) --操作符重载与临时对象
+          ros-launch启动文件的使用方法
         </h1>
 
         <div class="post-meta">
@@ -186,19 +188,13 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-01-15 14:25:15" itemprop="dateCreated datePublished" datetime="2021-01-15T14:25:15+08:00">2021-01-15</time>
+              <time title="Created: 2021-02-22 11:14:37 / Modified: 11:43:23" itemprop="dateCreated datePublished" datetime="2021-02-22T11:14:37+08:00">2021-02-22</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-16 14:11:02" itemprop="dateModified" datetime="2021-01-16T14:11:02+08:00">2021-01-16</time>
-              </span>
 
           
-            <div class="post-description">操作符重载与临时对象</div>
+            <div class="post-description">launch启动文件的使用方法</div>
 
         </div>
       </header>
@@ -209,22 +205,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="操作符重载与临时对象"><a class="header-anchor" href="#操作符重载与临时对象">¶</a>操作符重载与临时对象</h2>
-<h3 id="1-operator-overloading-操作符重载-1，成员函数-this"><a class="header-anchor" href="#1-operator-overloading-操作符重载-1，成员函数-this">¶</a>1 operator overloading(操作符重载-1，成员函数) this</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span>&amp;</span><br><span class="line">__doapl(<span class="built_in">complex</span>* ths,<span class="keyword">const</span> <span class="built_in">complex</span>&amp; r)&#123;</span><br><span class="line">    ths -&gt; re += r.re;</span><br><span class="line">    ths -&gt;im += r.im;</span><br><span class="line">    <span class="keyword">return</span> *ths;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span>&amp;</span><br><span class="line"><span class="built_in">complex</span> :: <span class="keyword">operator</span> += (<span class="keyword">const</span> <span class="built_in">complex</span>&amp; r)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> __doapl(<span class="keyword">this</span>, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="function"><span class="built_in">complex</span> <span class="title">c1</span><span class="params">(<span class="number">2</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="built_in">complex</span> <span class="title">c2</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">c2 += c1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-operator-overloading-操作重载-2，非成员函数-（无this）"><a class="header-anchor" href="#2-operator-overloading-操作重载-2，非成员函数-（无this）">¶</a>2 operator overloading(操作重载-2，非成员函数)（无this）</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="function"><span class="built_in">complex</span> <span class="title">c1</span><span class="params">(<span class="number">2</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line"><span class="built_in">complex</span> c2;</span><br><span class="line"></span><br><span class="line">c2 = c1 + c2;</span><br><span class="line">c2 = c1 + <span class="number">5</span>;</span><br><span class="line">c2 = <span class="number">7</span> + c1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">const</span> <span class="built_in">complex</span>&amp; x,<span class="keyword">const</span> <span class="built_in">complex</span>&amp; y)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">complex</span>(real(x) + real(y),imag(x) + imag(y)); </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">const</span> <span class="built_in">complex</span>&amp; x,<span class="keyword">double</span> y)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">complex</span>(real(x) + real(y),imag(x)); </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="built_in">complex</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">double</span> x,<span class="keyword">const</span> <span class="built_in">complex</span>&amp; y)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">complex</span>(real(x) + real(y), imag(y)); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面这些函数绝对不可能是return by reference，因为，他们返回的必定是个local object.</p>
-<p><strong>temp object(临时对象) typename()</strong></p>
-<p><code>complex(real(x) + real(y),imag(x) + imag(y));</code></p>
-<p><code>&lt;&lt;</code>不要考虑写成成员函数的形式。</p>
-<h2 id="设计一个class需要注意的事情"><a class="header-anchor" href="#设计一个class需要注意的事情">¶</a>设计一个class需要注意的事情</h2>
-<p><strong>1、要会用构造函数的inilization list</strong></p>
-<p><strong>2、函数该不该加const</strong></p>
-<p><strong>3、参数的传递reference</strong></p>
-<p><strong>4、数据主要private，函数主要public</strong></p>
+        <h2 id="一-Launch文件"><a class="header-anchor" href="#一-Launch文件">¶</a>一 Launch文件</h2>
+<p><strong>Launch文件：通过XML文件实现多节点的配置和启动</strong></p>
+<p>（可自动启动ROS Master）</p>
+<p><img src="/2021/02/22/ros9/launch.png" alt="launch文件语法"></p>
+<p>大概详细的语法详见wiki</p>
 
     </div>
 
@@ -234,7 +219,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/ros/" rel="tag"># ros</a>
           </div>
 
         
@@ -243,12 +228,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/14/c-1/" rel="prev" title="c++(一) ---基础">
-      <i class="fa fa-chevron-left"></i> c++(一) ---基础
+    <a href="/2021/02/22/ros8/" rel="prev" title="ros-tf坐标系广播与监听的编程实现">
+      <i class="fa fa-chevron-left"></i> ros-tf坐标系广播与监听的编程实现
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/01/15/c-3/" rel="next" title="c++(三) --三大函数">
-      c++(三) --三大函数 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/02/24/django1/" rel="next" title="django学习笔记">
+      django学习笔记 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -308,7 +293,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD%E4%B8%8E%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">操作符重载与临时对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-operator-overloading-%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD-1%EF%BC%8C%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-this"><span class="nav-number">1.1.</span> <span class="nav-text">1 operator overloading(操作符重载-1，成员函数) this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-operator-overloading-%E6%93%8D%E4%BD%9C%E9%87%8D%E8%BD%BD-2%EF%BC%8C%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-%EF%BC%88%E6%97%A0this%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2 operator overloading(操作重载-2，非成员函数)（无this）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAclass%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%BA%8B%E6%83%85"><span class="nav-number">2.</span> <span class="nav-text">设计一个class需要注意的事情</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80-Launch%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">一 Launch文件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

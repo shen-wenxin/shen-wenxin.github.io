@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shen-wenxin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":20,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="WSGI协议 ​		WSGI: 一种协议。主要包括server和application两部分。 ​		其中: server负责从客户端接受请求，将request转发给application，然后将application返回的response返回给客户端。 ​		WSGI application接收由server转发的request，处理请求，并将处理结果返回给server。 ¶WSGI(djang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django学习笔记">
+<meta property="og:url" content="https://shen-wenxin.github.io/2021/02/24/django1/index.html">
+<meta property="og:site_name" content="Wenxin Shen">
+<meta property="og:description" content="WSGI协议 ​		WSGI: 一种协议。主要包括server和application两部分。 ​		其中: server负责从客户端接受请求，将request转发给application，然后将application返回的response返回给客户端。 ​		WSGI application接收由server转发的request，处理请求，并将处理结果返回给server。 ¶WSGI(djang">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/02/24/django1/1.png">
+<meta property="article:published_time" content="2021-02-24T02:08:43.000Z">
+<meta property="article:modified_time" content="2021-03-05T08:01:43.843Z">
+<meta property="article:author" content="Wenxin Shen">
+<meta property="article:tag" content="dijango">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shen-wenxin.github.io/2021/02/24/django1/1.png">
+
+<link rel="canonical" href="https://shen-wenxin.github.io/2021/02/24/django1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>django学习笔记 | Wenxin Shen</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wenxin Shen</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">CS</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://shen-wenxin.github.io/2021/02/24/django1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Wenxin Shen">
+      <meta itemprop="description" content="CS Undergraduate at Harbin Institute of Technology, Shenzhen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wenxin Shen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          django学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-24 10:08:43" itemprop="dateCreated datePublished" datetime="2021-02-24T10:08:43+08:00">2021-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-05 16:01:43" itemprop="dateModified" datetime="2021-03-05T16:01:43+08:00">2021-03-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>WSGI协议</h1>
+<p>​		WSGI: 一种协议。主要包括<code>server</code>和<code>application</code>两部分。</p>
+<p>​		其中: <code>server</code>负责从客户端接受请求，将<code>request</code>转发给<code>application</code>，然后将<code>application</code>返回的<code>response</code>返回给客户端。</p>
+<p>​		<code>WSGI application</code>接收由<code>server</code>转发的<code>request</code>，处理请求，并将处理结果返回给<code>server</code>。</p>
+<h2 id="WSGI-django"><a class="header-anchor" href="#WSGI-django">¶</a>WSGI(django)</h2>
+<p>​		需要接收两个参数:<code>(environ、start_resopnse)</code></p>
+<p>​		其中: <code>environ</code>包含了客户端请求以及其他信息，可以认为是请求上下文。</p>
+<p>​		一个用于发送HTTP响应状态、响应头的回调函数。</p>
+<p>​		一个Django中application的具体实现的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span>(<span class="params">environ, start_response</span>):</span></span><br><span class="line">    start_response(<span class="string">&#x27;200 OK&#x27;</span>, [(<span class="string">&#x27;Content-Type&#x27;</span>, <span class="string">&#x27;text/html&#x27;</span>)])</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&lt;h1&gt;Hello, web!&lt;/h1&gt;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>​		其中<code>start_response('200 OK', [('Content-Type','text/html')])</code>就发送了HTTP响应的Header。Header只能发送一次，也就是只能调用一次<code>start_response()</code>函数。<code>start_response()</code>函数接收两个参数，一个是HTTP响应码，一个是一组<code>list</code>表示的HTTP Header，每个Header用一个包含两个<code>str</code>的<code>tuple</code>表示。</p>
+<p>​		通常情况下，都应该把<code>Content-Type</code>头发送给浏览器。其他很多常用的HTTP Header也应该发送。然后，函数的返回值<code>'&lt;h1&gt;Hello, web!&lt;/h1&gt;'</code>将作为HTTP响应的Body发送给浏览器。</p>
+<p>​		因此，可以推断出<code>WSGI Server</code>是如何调用<code>WSGI Application</code>的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">start</span> <span class="title">response</span>(<span class="params">status , headers</span>) :</span></span><br><span class="line">	set_ status(status)</span><br><span class="line">	fork k, v <span class="keyword">in</span> headers :</span><br><span class="line">		set_header (k , v )</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle</span> <span class="title">conn</span>(<span class="params">conn</span>):</span></span><br><span class="line">	app = application(environ, start_ response)</span><br><span class="line">	<span class="keyword">for</span> data <span class="keyword">in</span> a pp :</span><br><span class="line">		response += data</span><br><span class="line">		conn.sendall (response)</span><br></pre></td></tr></table></figure>
+<h2 id="WSGI中间件"><a class="header-anchor" href="#WSGI中间件">¶</a>WSGI中间件</h2>
+<p>​		除了交互部分的定义，<code>WSGI</code>还定义了中间件部分的逻辑，这个中间件可以理解为<code>Python</code>的一个装饰器，可以在不改变原方法的情况下对方法的输入输出部分进行处理。</p>
+<h1>Django框架</h1>
+<p>​		一次请求涉及的Django模块示意图：</p>
+<p>​		<img src="/2021/02/24/django1/1.png" alt="django_model"></p>
+<p>​		<code>Django</code>文档分出了：<code>Model</code>层、<code>View</code>层、模板层和<code>Form</code>模块。</p>
+<h4 id="Model部分"><a class="header-anchor" href="#Model部分">¶</a>Model部分</h4>
+<p>​		<code>Model</code>在整个项目结构中是直接同数据库打交道的一层，所以数据处理的部分都在这一层。开发中，如果是数据处理的部分，都放在这一层。</p>
+<h4 id="View-部分"><a class="header-anchor" href="#View-部分">¶</a>View 部分</h4>
+<p>​		这一部分侧重点在业务上。获取数据、过滤数据、整合数据，拿到我们想要的结果，然后传递到模板中，最终通过<code>HttpResponse</code>渲染。</p>
+<h4 id="Template-部分"><a class="header-anchor" href="#Template-部分">¶</a>Template 部分</h4>
+<p>​		挺友好的部分。</p>
+<h4 id="Form部分"><a class="header-anchor" href="#Form部分">¶</a>Form部分</h4>
+<p>​		工作原理跟ORM很像。<code>Form</code>是对<code>HTML</code>中<code>Form</code>表单的抽象，方便直接用python 代码来直接操作传递过来的数据。</p>
+<h2 id="Model-部分"><a class="header-anchor" href="#Model-部分">¶</a>Model 部分</h2>
+<h3 id="字段"><a class="header-anchor" href="#字段">¶</a>字段</h3>
+<p>​		一些通用的字段参数：</p>
+<h4 id="choices"><a class="header-anchor" href="#choices">¶</a>choices</h4>
+<p>​		一系列二元组。每个二元组的第一个值会存储在数据库中，而第二个值只会在表单中显示。</p>
+<h2 id="实操部分"><a class="header-anchor" href="#实操部分">¶</a>实操部分</h2>
+<p><code>启动django项目</code></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject typeidea</span><br></pre></td></tr></table></figure>
+<p><code>运行项目代码：</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+<p><code>注意：</code></p>
+<p>settings.py是单独的模块，在开发环境、测试环境、线上环境配置时不太容易处理。因此要把这个settings.py拆分成一个package（文件夹）</p>
+<p>创建一个setting的package:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir settings &amp;&amp; touch settings&#x2F;__init__.py</span><br></pre></td></tr></table></figure>
+<p><code>创建一个blog的app</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;manage.py startapp blog</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/dijango/" rel="tag"># dijango</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/22/ros9/" rel="prev" title="ros-launch启动文件的使用方法">
+      <i class="fa fa-chevron-left"></i> ros-launch启动文件的使用方法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">WSGI协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WSGI-django"><span class="nav-number">1.1.</span> <span class="nav-text">WSGI(django)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WSGI%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">WSGI中间件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Django框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Model%E9%83%A8%E5%88%86"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">Model部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-%E9%83%A8%E5%88%86"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">View 部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Template-%E9%83%A8%E5%88%86"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">Template 部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Form%E9%83%A8%E5%88%86"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">Form部分</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-%E9%83%A8%E5%88%86"><span class="nav-number">2.1.</span> <span class="nav-text">Model 部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5"><span class="nav-number">2.1.1.</span> <span class="nav-text">字段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#choices"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">choices</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%93%8D%E9%83%A8%E5%88%86"><span class="nav-number">2.2.</span> <span class="nav-text">实操部分</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wenxin Shen"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Wenxin Shen</p>
+  <div class="site-description" itemprop="description">CS Undergraduate at Harbin Institute of Technology, Shenzhen</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shen-wenxin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shen-wenxin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:shen_wenxin@qq.com" title="E-Mail → mailto:shen_wenxin@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wenxin Shen</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
