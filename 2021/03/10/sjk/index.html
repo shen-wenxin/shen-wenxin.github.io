@@ -24,7 +24,7 @@
 
   <meta name="description" content="哈工大mooc 数据库学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sjk">
+<meta property="og:title" content="数据库笔记">
 <meta property="og:url" content="https://shen-wenxin.github.io/2021/03/10/sjk/index.html">
 <meta property="og:site_name" content="Wenxin Shen">
 <meta property="og:description" content="哈工大mooc 数据库学习笔记">
@@ -35,8 +35,14 @@
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/4.png">
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/5.png">
 <meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/6.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/7.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/8.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/9.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/10.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/11.png">
+<meta property="og:image" content="https://shen-wenxin.github.io/2021/03/10/sjk/12.png">
 <meta property="article:published_time" content="2021-03-10T08:29:23.000Z">
-<meta property="article:modified_time" content="2021-03-16T02:23:59.335Z">
+<meta property="article:modified_time" content="2021-03-16T07:08:38.440Z">
 <meta property="article:author" content="Wenxin Shen">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
@@ -55,7 +61,7 @@
   };
 </script>
 
-  <title>sjk | Wenxin Shen</title>
+  <title>数据库笔记 | Wenxin Shen</title>
   
 
 
@@ -184,7 +190,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          sjk
+          数据库笔记
         </h1>
 
         <div class="post-meta">
@@ -201,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-16 10:23:59" itemprop="dateModified" datetime="2021-03-16T10:23:59+08:00">2021-03-16</time>
+                <time title="Modified: 2021-03-16 15:08:38" itemprop="dateModified" datetime="2021-03-16T15:08:38+08:00">2021-03-16</time>
               </span>
 
           
@@ -244,8 +250,10 @@
 <h2 id="2-1-数据库系统的标准结构"><a class="header-anchor" href="#2-1-数据库系统的标准结构">¶</a>2.1 数据库系统的标准结构</h2>
 <h3 id="2-1-1-DBMS管理数据的三个层次"><a class="header-anchor" href="#2-1-1-DBMS管理数据的三个层次">¶</a>2.1.1 DBMS管理数据的三个层次</h3>
 <h4 id="1-、External-Level-User-Level-外部模式"><a class="header-anchor" href="#1-、External-Level-User-Level-外部模式">¶</a>1)、External Level = User Level(外部模式)</h4>
+<p>​		<strong>局部模式/外模式</strong></p>
 <p>​		某一用户能够看到与处理的数据，全局数据中的某一部分</p>
 <h4 id="2-、Conceptual-Level-Logic-level-概念"><a class="header-anchor" href="#2-、Conceptual-Level-Logic-level-概念">¶</a>2)、Conceptual Level = Logic level(概念)</h4>
+<p>​		<strong>全局模式/概念模式</strong></p>
 <p>​		从全局角度理解/管理数据，含相应的关联约束</p>
 <h4 id="3-、Internal-Level-Physical-level"><a class="header-anchor" href="#3-、Internal-Level-Physical-level">¶</a>3)、Internal Level = Physical level</h4>
 <p>​		存储在介质上的数据，含存储路径、存储方式、索引方式等。</p>
@@ -280,11 +288,67 @@
 <p><img src="/2021/03/10/sjk/5.png" alt="两层映像"></p>
 <h3 id="2-1-4-数据库系统的标准结构"><a class="header-anchor" href="#2-1-4-数据库系统的标准结构">¶</a>2.1.4 数据库系统的标准结构</h3>
 <p><img src="/2021/03/10/sjk/6.png" alt="数据库系统的标准结构"></p>
-<h3 id><a class="header-anchor" href="#">¶</a></h3>
-<h2 id="2-2-重点与难点"><a class="header-anchor" href="#2-2-重点与难点">¶</a>2.2 重点与难点</h2>
-<h3 id="-v2"><a class="header-anchor" href="#-v2">¶</a></h3>
-<h3 id="一组概念的区分：数据-rightarrow-模式-rightarrow-数据模型"><a class="header-anchor" href="#一组概念的区分：数据-rightarrow-模式-rightarrow-数据模型">¶</a>一组概念的区分：数据$$\rightarrow$$模式$$\rightarrow $$数据模型</h3>
-<h3 id="几种数据模型的差异：网状-层次模型-rightarrow-关系模型-rightarrow-OO数据模型"><a class="header-anchor" href="#几种数据模型的差异：网状-层次模型-rightarrow-关系模型-rightarrow-OO数据模型">¶</a>几种数据模型的差异：网状/层次模型$$\rightarrow $$关系模型$$\rightarrow $$OO数据模型</h3>
+<h3 id="2-1-5-两个独立型"><a class="header-anchor" href="#2-1-5-两个独立型">¶</a>2.1.5 两个独立型</h3>
+<p><strong>逻辑数据独立性</strong></p>
+<p>当概念模式变化时，可以不改变外部模式（只需改变E-C Mappin），从而无需改变应用程序。</p>
+<p><strong>物理数据独立性</strong></p>
+<p>当内部模式变化时，可以不改变概念模式（只需改变C-I Mapping），从而不改变外部模式。</p>
+<h2 id="2-2-数据模型"><a class="header-anchor" href="#2-2-数据模型">¶</a>2.2 数据模型</h2>
+<h3 id="2-2-1-数据模型的概念"><a class="header-anchor" href="#2-2-1-数据模型的概念">¶</a>2.2.1 数据模型的概念</h3>
+<p><strong>数据模型</strong></p>
+<p>​		规定模式统一描述方式的模型，包括：数据结构、操作和约束</p>
+<p>​		数据模型是对模式本身结构的抽象，模式是对数据本身结构形式的抽象。</p>
+<h3 id="2-2-2-三大经典数据模型"><a class="header-anchor" href="#2-2-2-三大经典数据模型">¶</a>2.2.2 三大经典数据模型</h3>
+<p>​		关系模型：<strong>表</strong>的形式组织数据</p>
+<p>​		层次模型：<strong>树</strong>的形式组织模型</p>
+<p>​		网状模型：<strong>图</strong>的形式组织数据</p>
+<h2 id="2-3-补充"><a class="header-anchor" href="#2-3-补充">¶</a>2.3 补充</h2>
+<p>​		第一代数据系统：基于网状模型或层次模型的数据库系统</p>
+<h1>3 关系模型</h1>
+<h2 id="3-1-关系模型简述"><a class="header-anchor" href="#3-1-关系模型简述">¶</a>3.1 关系模型简述</h2>
+<h3 id="3-1-1-关系模型三要素"><a class="header-anchor" href="#3-1-1-关系模型三要素">¶</a>3.1.1 关系模型三要素</h3>
+<p>​		关系模型的三个要素（详细内容在后面讲述）</p>
+<p>​		<strong>基本结构</strong>：Relation/Table</p>
+<p>​		**基本操作：<strong>并、差、广义积、选择、投影</strong>拓展的：**交、连接、除</p>
+<p>​		<strong>完整性约束</strong>：实体完整性、参照完整性和用户自定义完整性。</p>
+<h3 id="3-1-2-关系的数学关系"><a class="header-anchor" href="#3-1-2-关系的数学关系">¶</a>3.1.2 关系的数学关系</h3>
+<p><strong>域：</strong></p>
+<p>​		一组值的集合，这组值具有相同的数据类型。</p>
+<p>​		如整数的集合、字符串的集合、全体学生的集合。</p>
+<p><strong>笛卡尔积：</strong></p>
+<p>​		再定义“元组”及所有可能组成的元组：笛卡尔积</p>
+<p><strong>关系</strong>：</p>
+<p>​		笛卡尔积中具有某一方面 意义的那些元组被称作一个关系</p>
+<p>​		由于关系的不同列可能来自同一个域，为区分，需要为每一列起一个名字，改名字即为属性名</p>
+<p><img src="/2021/03/10/sjk/7.png" alt="数据库系统的标准结构"></p>
+<p><img src="/2021/03/10/sjk/8.png" alt="数据库系统的标准结构"></p>
+<h3 id="3-1-3-思维回顾"><a class="header-anchor" href="#3-1-3-思维回顾">¶</a>3.1.3 思维回顾</h3>
+<p><img src="/2021/03/10/sjk/9.png" alt="思维回顾"></p>
+<h3 id="3-1-4-关系的特性"><a class="header-anchor" href="#3-1-4-关系的特性">¶</a>3.1.4 关系的特性</h3>
+<p>列是同质：即每一列中的分量来自同一域，是同一类型的数据。</p>
+<p>列位置互换性：区分哪一列是靠列名</p>
+<p>行位置互换性：区分哪一行是靠某一列或者某几列的值（关键字/键字/码字）</p>
+<p>理论上，<strong>关系</strong>的任意两个元组不能完全相同。</p>
+<p>属性不可再分特性：又被称为关系第一范式</p>
+<p><img src="/2021/03/10/sjk/10.png" alt="属性不可再分"></p>
+<h3 id="3-1-5-候选码-候选键"><a class="header-anchor" href="#3-1-5-候选码-候选键">¶</a>3.1.5 候选码/候选键</h3>
+<p>关系中的一个属性组，其值能唯一标识一个元组，若从该属性组中去掉任何一个属性，他就不具有这一性质了，这样的属性组成为候选码。</p>
+<p>有时，关系中有很多组候选码。</p>
+<p>当有多个候选码时，可以选定一个作为主码。</p>
+<p>包含在任何一个候选码中的属性被称为<strong>主属性</strong>，而其他属性被称为<strong>非主属性</strong></p>
+<h3 id="3-1-6-外码"><a class="header-anchor" href="#3-1-6-外码">¶</a>3.1.6 外码</h3>
+<p>当关系R中的一个属性组，他不是R的候选码，但是他域另一个关系S的候选码相对应，则称这个属性组为R的外码或外键。</p>
+<p><img src="/2021/03/10/sjk/11.png" alt="外码"></p>
+<h3 id="3-1-7-关系模型的完整性"><a class="header-anchor" href="#3-1-7-关系模型的完整性">¶</a>3.1.7 关系模型的完整性</h3>
+<p><strong>实体完整性</strong></p>
+<p>关系的主码中的属性值不能为空值。</p>
+<p>空值：不知道或无意义的值。</p>
+<p>意义：关系中的元组对应到现实世界相互之间可区分的一个个体，这些个体是通过主码来唯一标识的；若主码为空，则出现不可标识的个体，这是不容许的。</p>
+<p><strong>空值</strong></p>
+<p>不知道、不存在、无意义</p>
+<p><strong>参照完整性</strong></p>
+<p><img src="/2021/03/10/sjk/12.png" alt="参照完整性"></p>
+<p><strong>用户自定义完整性</strong></p>
 
     </div>
 
@@ -368,7 +432,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1 初步认识数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E4%BB%8E%E7%94%A8%E6%88%B7%E8%A7%92%E5%BA%A6%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 从用户角度看数据库管理系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E6%9C%AC%E8%AE%B2%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 本讲总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 数据库管理系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E9%A2%98%E7%9B%AE"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 题目</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2 数据库系统的结构抽象与演变</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 数据库系统的标准结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-DBMS%E7%AE%A1%E7%90%86%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 DBMS管理数据的三个层次</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E3%80%81External-Level-User-Level-%E5%A4%96%E9%83%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">1)、External Level &#x3D; User Level(外部模式)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E3%80%81Conceptual-Level-Logic-level-%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">2)、Conceptual Level &#x3D; Logic level(概念)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E3%80%81Internal-Level-Physical-level"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">3)、Internal Level &#x3D; Physical level</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E6%95%B0%E6%8D%AE%EF%BC%88%E8%A7%86%E5%9B%BE%EF%BC%89%E4%B8%8E%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 数据（视图）与模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89-%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">1） 模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%BC%89%E8%A7%86%E5%9B%BE"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">2）视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E4%B8%89%E7%BA%A7%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%B8%A4%E5%B1%82%E6%98%A0%E5%83%8F%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 三级模式与两层映像（重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-External-Schema-%E7%BB%93%E6%9E%84%E6%8F%8F%E8%BF%B0-External-View-%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">1)External Schema(结构描述) ----(External) View(数据视图)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Conventual-Schema-Conceptual-View"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">2) (Conventual)Schema ---- Conceptual View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Internal-Schema-Internal-View"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">3)Internal Schema ----Internal View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#E-C-Mapping"><span class="nav-number">2.1.3.4.</span> <span class="nav-text">E-C Mapping:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-I-Mapping"><span class="nav-number">2.1.3.5.</span> <span class="nav-text">C-I Mapping:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 数据库系统的标准结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.5.</span> <span class="nav-text">¶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E9%87%8D%E7%82%B9%E4%B8%8E%E9%9A%BE%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 重点与难点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#-v2"><span class="nav-number">2.2.1.</span> <span class="nav-text">¶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%BB%84%E6%A6%82%E5%BF%B5%E7%9A%84%E5%8C%BA%E5%88%86%EF%BC%9A%E6%95%B0%E6%8D%AE-rightarrow-%E6%A8%A1%E5%BC%8F-rightarrow-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">一组概念的区分：数据$$\rightarrow$$模式$$\rightarrow $$数据模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E7%A7%8D%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%B7%AE%E5%BC%82%EF%BC%9A%E7%BD%91%E7%8A%B6-%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B-rightarrow-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B-rightarrow-OO%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.3.</span> <span class="nav-text">几种数据模型的差异：网状&#x2F;层次模型$$\rightarrow $$关系模型$$\rightarrow $$OO数据模型</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1 初步认识数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E4%BB%8E%E7%94%A8%E6%88%B7%E8%A7%92%E5%BA%A6%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 从用户角度看数据库管理系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E6%9C%AC%E8%AE%B2%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 本讲总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 数据库管理系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E9%A2%98%E7%9B%AE"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 题目</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2 数据库系统的结构抽象与演变</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 数据库系统的标准结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-DBMS%E7%AE%A1%E7%90%86%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 DBMS管理数据的三个层次</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E3%80%81External-Level-User-Level-%E5%A4%96%E9%83%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">1)、External Level &#x3D; User Level(外部模式)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E3%80%81Conceptual-Level-Logic-level-%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">2)、Conceptual Level &#x3D; Logic level(概念)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E3%80%81Internal-Level-Physical-level"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">3)、Internal Level &#x3D; Physical level</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E6%95%B0%E6%8D%AE%EF%BC%88%E8%A7%86%E5%9B%BE%EF%BC%89%E4%B8%8E%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 数据（视图）与模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89-%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">1） 模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%BC%89%E8%A7%86%E5%9B%BE"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">2）视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E4%B8%89%E7%BA%A7%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%B8%A4%E5%B1%82%E6%98%A0%E5%83%8F%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 三级模式与两层映像（重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-External-Schema-%E7%BB%93%E6%9E%84%E6%8F%8F%E8%BF%B0-External-View-%E6%95%B0%E6%8D%AE%E8%A7%86%E5%9B%BE"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">1)External Schema(结构描述) ----(External) View(数据视图)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Conventual-Schema-Conceptual-View"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">2) (Conventual)Schema ---- Conceptual View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Internal-Schema-Internal-View"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">3)Internal Schema ----Internal View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#E-C-Mapping"><span class="nav-number">2.1.3.4.</span> <span class="nav-text">E-C Mapping:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#C-I-Mapping"><span class="nav-number">2.1.3.5.</span> <span class="nav-text">C-I Mapping:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 数据库系统的标准结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5-%E4%B8%A4%E4%B8%AA%E7%8B%AC%E7%AB%8B%E5%9E%8B"><span class="nav-number">2.1.5.</span> <span class="nav-text">2.1.5 两个独立型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 数据模型的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E4%B8%89%E5%A4%A7%E7%BB%8F%E5%85%B8%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 三大经典数据模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E8%A1%A5%E5%85%85"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 补充</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3 关系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E7%AE%80%E8%BF%B0"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 关系模型简述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E4%B8%89%E8%A6%81%E7%B4%A0"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 关系模型三要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E5%85%B3%E7%B3%BB%E7%9A%84%E6%95%B0%E5%AD%A6%E5%85%B3%E7%B3%BB"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 关系的数学关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-%E6%80%9D%E7%BB%B4%E5%9B%9E%E9%A1%BE"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 思维回顾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-4-%E5%85%B3%E7%B3%BB%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">3.1.4.</span> <span class="nav-text">3.1.4 关系的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-5-%E5%80%99%E9%80%89%E7%A0%81-%E5%80%99%E9%80%89%E9%94%AE"><span class="nav-number">3.1.5.</span> <span class="nav-text">3.1.5 候选码&#x2F;候选键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-6-%E5%A4%96%E7%A0%81"><span class="nav-number">3.1.6.</span> <span class="nav-text">3.1.6 外码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-7-%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">3.1.7.</span> <span class="nav-text">3.1.7 关系模型的完整性</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
